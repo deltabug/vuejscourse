@@ -22,8 +22,8 @@
     <p>{{ weather }}</p>
     <p>{{ temperature }}</p>
     <p>{{ feelslike }}</p>
-    <p>{{ pressure }}</p>
-    <p>{{ humidity }}</p>
+    <p>{{ pressure }}kPa</p>
+    <p>{{ humidity }}&percnt;</p>
   </div>
 </template>
 
@@ -64,10 +64,12 @@ export default {
         )
         .then(
           response => (
-          (this.description = response.data.weather[0].description, this.weather = response.data.weather[0].main, 
-          this.temperature = response.data.main.temp, this.feelslike = response.data.main.feels_like,
-            (this.pressure = response.data.main.pressue),
-            (this.humidity = response.data.main.humidity)
+          (this.description = response.data.weather[0].description, 
+          this.weather = response.data.weather[0].main, 
+          this.temperature = response.data.main.temp, 
+          this.feelslike = response.data.main.feels_like,
+          this.pressure = response.data.main.pressure,
+          this.humidity = response.data.main.humidity
           )
         ));
     }
