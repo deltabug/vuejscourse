@@ -20,6 +20,10 @@
     </button>
     <p>{{ description }}</p>
     <p>{{ weather }}</p>
+    <p>{{ temperature }}</p>
+    <p>{{ feelslike }}</p>
+    <p>{{ pressure }}</p>
+    <p>{{ humidity }}</p>
   </div>
 </template>
 
@@ -45,7 +49,11 @@ export default {
         { id: 9, text: "Nigeria", value: "ng" }
       ],
       weather: "",
-      description: ""
+      description: "",
+      temperature: "",
+      feelslike: "",
+      pressure: "",
+      humidity: ""
     };
   },
   methods: {
@@ -54,11 +62,14 @@ export default {
         .get(
           `http://api.openweathermap.org/data/2.5/weather?q=${this.loc.city},${this.loc.country}&APPID=48f2d5e18b0d2bc50519b58cce6409f1`
         )
-        .then(response =>
-          (this.description = response.data.weather[0].description)(
-            (this.weather = response.data.weather[0].main)
+        .then(
+          response => (
+          (this.description = response.data.weather[0].description, this.weather = response.data.weather[0].main, 
+          this.temperature = response.data.main.temp, this.feelslike = response.data.main.feels_like,
+            (this.pressure = response.data.main.pressue),
+            (this.humidity = response.data.main.humidity)
           )
-        );
+        ));
     }
   }
 };
