@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VueJS Review Exercise</title>
+</head>
+
+<body>
+    <script type='module'>
+        // we import the Vue dependency (modern browsers only)
+        import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.esm.browser.js'
+
+        Vue.component('my-user-input', {
+            template: `
+    <section>
+        <input v-model="user.username" placeholder="username">
+        <hr>
+        <img v-bind:src="imgUrl">
+        <hr>
+    <!-- change v-show to true to reveal this optional section -->
+    <aside v-show='false'>
+        <input v-model="user.city" placeholder="city">
+    <br>
+    <select v-model="user.country">
+      <option disabled value>Country</option>
+      <option
+        v-for="option in countries"
+        v-bind:value="option.value"
+        v-bind:key="option.key"
+      >{{ option.text }}</option>
+    </select>
+    <br>
+    <button v-bind:disabled="user.city==='' || user.country===''" 
+            v-on:click="handleClick">Append to array</button>
+    <hr>
+    <ul>
+      <li v-for="user in arrUsers" v-bind:key='user.id'> 
+        <button @click="doRemove(user)">x</button>
+        {{user.city}} {{user.country}}
+      </li>
+    </ul>
+    </aside>
+  </section>    
+                    `,
+        computed: {
+            imgUrl() {
+                return `https://graph.facebook.com/${this.user.username}/picture?type=normal`;
+            }
+        },
+        data: () => {
+            return {
+                user: { id: 0, username: "Ada", city: "London", country: "uk" },
+                arrUsers: [],
+                countries: [
+                    { id: 0, text: "United Kingdom", value: "uk" },
+                    { id: 1, text: "France", value: "fr" },
+                    { id: 2, text: "Germany", value: "de" },
+                    { id: 3, text: "Ireland", value: "ie" },
+                    { id: 4, text: "Italy", value: "it" },
+                    { id: 5, text: "Australia", value: "aus" },
+                    { id: 9, text: "Nigeria", value: "ng" }
+                ]
+            };
+        },
+        methods: {
+            handleClick: function () {
+                let num = this.arrUsers.length;
+                let newUser = {
+                    id: num,
+                    username: this.user.username,
+                    city: this.user.city,
+                    country: this.user.country,
+                    age: this.user.age
+                }
+                this.arrUsers.push(newUser)
+            },
+            doRemove(whichUser) {
+                this.arrUsers.splice(this.arrUsers.indexOf(whichUser), 1)
+            }
+        }
+        })
+    let app = new Vue(
+        // declare a config object
+        {
+            el: '#app'
+        }
+    )
+    </script>
+
+    <article id="app">
+        <my-user-input v-bind:user="{name:'', city:'', country:''}"></my-user-input>
+    </article>
+
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>First Vue JS Application</title>
+</head>
+
+<body>
+    <script type='module'>
+        //importing vue dependancy (modern browsers)
+        import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.esm.browser.js'
+
+        // declare components we will need (would be seperate files)
+        Vue.component('tri-item', {
+            props: ['x', 'y', 'r'], //only props we decalre at creation will be tracked
+            data() {//note: data must be a function
+                return { x: 3, y: 4 }
+            },
+            template: `
+                <aside>
+                    <input type='range' min='0.2' max='6' steps='0.2' v-model='x'/>
+                    <input type='range' min='0.2' max='6' steps='0.2' v-model='y'/>
+                    <button v-on:click='handleChange'>GO</button>
+                    <p>{{x}} {{y}} {{r}}</p>
+                </aside>
+            `,
+            methods: {
+                handleChange() {
+                    this.r = Math.sqrt(this.x * this.x + this.y * this.y).toFixed(2)
+                }
+            },
+            computed:{
+                r(){
+                    return(Math.sqrt(this.x*this.x + this.y*this.y).toFixed(2))
+                }
+            },
+        })
+
+        //instantiate a new instance of Vue class
+        let app = new Vue(
+            //declare a config object
+            {
+                el: '#app',
+                data: {
+                    message: 'Boing Boing',
+                    agreeflag: true,
+                    products: [
+                        { item: 'dots', price: '3.99', title: 'plain dots' },
+                        { item: 'slots', price: '1.99', tite: 'long slots' },
+                        { item: 'spots', price: '5.99', title: 'super dots' }
+                    ]
+                },
+                templates: {},
+                computed: {},
+            }
+        )
+
+    </script>
+
+    <article id='app'>
+        <h2>
+            {{message}}
+        </h2>
+        <button v-on:click="choomp">Chomp Chomp</button>
+        <nav></nav>
+        <!-- we can instantiate our component optionally with default props -->
+        <tri-item></tri-item>
+        <pre>one plus two equals {{1+2}}</pre>
+        <section>
+            <!-- <span :title="message"> means the same as below -->
+            <span v-bind:title="message">
+                Hover your mouse over me!
+            </span>
+        </section>
+        <section>
+            <ul>
+                <li v-for='prod in products'>{{prod.item}}</li>
+            </ul>
+        </section>
+        <footer>&copy; 2020 read our legal notice</footer>
+
+    </article>
+</body>
+
+</html>
