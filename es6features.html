@@ -10,6 +10,9 @@
     <article>
         <section>
             <div id='content'></div>
+            <div id='container'>
+                <button id='agree'>Agree to cookies</button>
+            </div>
         </section>
     </article>
     <script>
@@ -54,14 +57,30 @@
                     `${this.name} ${this.email}`
                 )
             }
+            showDetailsagain(){
+                el = document.createElement('p')
+                el.innerHTML = `${this.name} ${this.email}`
+                return (
+                    el
+                )
+            }   
         }
 
         let me = new User(id=0, name='Ethel')
-        console.log(me.showDetails())
+        console.log(me.showDetails())      
 
         //writing to the document object model (DOM)
         content.innerHTML = me.showDetails()
         
+        let where = document.getElementById('content')
+        where.appendChild(me.showDetailsagain())
+
+        const removeButton = ()=>{
+            event.target.removeEventListener('click', removeButton)
+            content.removeChild('agree')
+        }
+        // event listeners
+        agree.addEventListener('click', removeButton)
 
     </script>
 </body>
