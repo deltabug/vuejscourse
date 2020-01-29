@@ -41,17 +41,27 @@
             username = ''
             email = ''
             address = {}
-            constructor(id,name,username,email='',address='',...rest){
-                this.id = id
-                this.name = name
-                this.username = username
-                this.email = email
-                this.address = address
+            constructor(_id,_name,_username,_email='',_address='',...rest){
+                this.id = _id
+                this.name = _name
+                this.username = _username
+                this.email = _email
+                this.address = _address
+            }
+            // methods
+            showDetails(){
+                return (
+                    `${this.name} ${this.email}`
+                )
             }
         }
 
         let me = new User(id=0, name='Ethel')
-        console.log(me)
+        console.log(me.showDetails())
+
+        //writing to the document object model (DOM)
+        content.innerHTML = me.showDetails()
+        
 
     </script>
 </body>
