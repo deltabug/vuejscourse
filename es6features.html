@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Exploring ECMAScript Features</title>
+</head>
+<body>
+    <article>
+        <section>
+            <div id='content'></div>
+        </section>
+    </article>
+    <script>
+        // Epsilon
+        let n=0
+            while (true) {
+                n += 0.1
+                if (Math.abs(n - 0.3) < Number.EPSILON){
+                    break
+                }
+            }
+        // Number
+        console.log(Number.MAX_SAFE_INTEGER)
+
+        // rest and spread
+        suspects = ['Alice', 'Bob', 'Bill']
+
+        const review = (s)=>{
+            // we can access the parameters
+            console.log(s)
+        }
+        review(suspects)
+
+
+        // classes
+        class User {
+            id = null
+            name = ''
+            username = ''
+            email = ''
+            address = {}
+            constructor(id,name,username,email='',address='',...rest){
+                this.id = id
+                this.name = name
+                this.username = username
+                this.email = email
+                this.address = address
+            }
+        }
+
+        let me = new User(id=0, name='Ethel')
+        console.log(me)
+
+    </script>
+</body>
+</html>
