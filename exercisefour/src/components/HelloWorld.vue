@@ -26,7 +26,7 @@ export default {
     async loadNextImage()
       {
           axios.defaults.headers.common['2a924b65-6487-4475-8789-b051599c5c93']
-          let response = await axios.get('https://api.thecatapi.com/v1/images/search', { params: { limit:1, size:"full" } } ) // Ask for 1 Image, at full resolution
+          let response = await axios.get('https://api.thecatapi.com/v1/images/search', { params: { limit:1, size:"full" } } )
              
           this.image = response.data[0]
 
